@@ -74,10 +74,10 @@ def create_numbered_pdf(input_pdf_path, portada_path, trasera_path, output_pdf_p
         writer.write(output_pdf)
 
 # Configuración
-input_pdf_path = "diario_de_clase.pdf"  # Ruta al PDF original
+input_pdf_path = "cuerpo.pdf"  # Ruta al PDF original
 portada_path = "portada.pdf"            # Ruta al PDF de la portada
 trasera_path = "trasera.pdf"            # Ruta al PDF de la trasera
-output_pdf_path = "documento_numerado_completo.pdf"  # Ruta al PDF resultante
+output_pdf_path = "diario_de_clase.pdf"  # Ruta al PDF resultante
 positions = [(110, 565), (110, 270), (30, 15)]  # Coordenadas (x, y) para los textos
 # 
 # Preguntar por el número de páginas
