@@ -88,6 +88,6 @@ copies = int(copies) if copies.isdigit() else 40
 
 # Crear el PDF con portada, páginas numeradas y 
 # trasera, incluyendo una linea de pie con frases del archivo frases csv
-# en A5
+# en A5 paraka EOI
 create_numbered_pdf(input_pdf_path, portada_path, trasera_path, output_pdf_path, copies, positions)
 print(f"PDF generado: {output_pdf_path}")
