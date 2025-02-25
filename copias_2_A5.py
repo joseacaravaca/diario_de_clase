@@ -2,7 +2,6 @@ from PyPDF2 import PdfReader, PdfWriter, PageObject
 from reportlab.pdfgen import canvas
 from io import BytesIO
 import pandas as pd
-from reportlab.lib.pagesizes import A5
 
 def lee_frases():
     """
@@ -11,16 +10,20 @@ def lee_frases():
     df = pd.read_csv('frases.csv')
     return df.values.tolist()
 
-def create_overlay(page_number):
+def create_overlay(text1, x1, y1, text2, x2, y2, text3, x3, y3):
     """
-    Crea un PDF en memoria con el número de página en la esquina superior izquierda.
+    Crea un PDF en memoria con tres textos en las coordenadas especificadas.
     """
     packet = BytesIO()
-    can = canvas.Canvas(packet, pagesize=A5)  # Tamaño de página A5
+    can = canvas.Canvas(packet)
 
-    # Número de página en la esquina superior izquierda
-    can.setFont("Helvetica", 10)
-    can.drawString(110,568, str(page_number))  # Coordenadas para el número de página en A5
+    # Configuración de las fuentes
+    can.setFont("Helvetica", 12)  # Tamaño para los números
+    can.drawString(x1, y1, text1)  # Primer número
+    can.drawString(x2, y2, text2)  # Segundo número
+
+    can.setFont("Helvetica", 8)   # Tamaño más pequeño para la frase
+    can.drawString(x3, y3, text3)  # Frase
 
     can.save()
     packet.seek(0)
@@ -48,10 +51,16 @@ def create_numbered_pdf(input_pdf_path, portada_path, trasera_path, output_pdf_p
         )
         new_page.merge_page(original_page)
 
-        # Crear la capa con el número de página
-        page_number = i  # Número de página
+        # Crear la capa con los textos y números
+        text1 = str((i * 2) - 1)  # Número impar
+        text2 = str(i * 2)        # Número par
+        text3 = str(frases[i - 1]).replace("]", "").replace("[", "").replace("'", "")  # Frase
 
-        overlay = create_overlay(page_number)
+        x1, y1 = positions[0]     # Coordenadas para el primer número
+        x2, y2 = positions[1]     # Coordenadas para el segundo número
+        x3, y3 = positions[2]     # Coordenadas para la frase
+
+        overlay = create_overlay(text1, x1, y1, text2, x2, y2, text3, x3, y3)
         new_page.merge_page(overlay)
 
         # Agregar la página numerada al PDF final
