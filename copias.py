@@ -72,7 +72,7 @@ output_pdf_path = "diario_de_clase.pdf"  # Ruta al PDF resultante
 positions = [(110, 565), (110, 270), (30, 15)]  # Coordenadas (x, y) para los textos
 # 
 # Preguntar por el número de páginas
-copies = input(f"Ingrese el número de copias. Valor por defecto: 40, (80 fichas): ")
+copies = input(f"Ingrese el número de copias. Valor por defecto: 40: ")
 copies = int(copies) if copies.isdigit() else 40
 # 
 
